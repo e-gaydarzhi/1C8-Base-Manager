@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1C8 Base Manager", "1C8 Base Manager\1C8 Base Manager.csproj", "{A3FEFB31-BABC-4CC5-84F8-5E1C3BCD873E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3FEFB31-BABC-4CC5-84F8-5E1C3BCD873E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3FEFB31-BABC-4CC5-84F8-5E1C3BCD873E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3FEFB31-BABC-4CC5-84F8-5E1C3BCD873E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3FEFB31-BABC-4CC5-84F8-5E1C3BCD873E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
