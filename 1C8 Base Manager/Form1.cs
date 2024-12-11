@@ -249,7 +249,7 @@ Version=8.3";
 
                 File.Copy(currentUserPath, backupFilePath, true);
                 MessageBox.Show($"Backup created: {backupFilePath}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                label1.Text = "Создана резервная копия.";
+                label1.Text = "Backup created.";
             }
             catch (Exception ex)
             {
