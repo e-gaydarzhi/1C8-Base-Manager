@@ -85,7 +85,7 @@ namespace _1C8_Base_Manager
             gridView.Columns.Clear();
 
             gridView.Columns.Add("Name", "Name");
-            gridView.Columns.Add("Server", "Server");
+            gridView.Columns.Add("Server/File", "Server/File");
             gridView.Columns.Add("Reference", "Reference");
             gridView.Columns.Add("ID", "ID");
 
@@ -103,15 +103,16 @@ namespace _1C8_Base_Manager
                 string name = match.Groups[1].Value.Trim();
                 string details = match.Groups[2].Value;
 
-                string server = ExtractValue(details, @"Srvr=""([^""]+)""");
-                string reference = ExtractValue(details, @"Ref=""([^""]+)""");
-                string id = ExtractValue(details, @"ID=([^\r\n]+)");
+                string server = ExtractConnectionValue(details, @"Srvr=""([^""]+)""");
+                string file = ExtractConnectionValue(details, @"File=""([^""]+)""");
+                string reference = ExtractConnectionValue(details, @"Ref=""([^""]+)""");
+                string id = ExtractConnectionValue(details, @"ID=([^\r\n]+)");
 
-                gridView.Rows.Add(name, server, reference, id);
+                string connectionSource = !string.IsNullOrEmpty(server) ? server : file;
+                gridView.Rows.Add(name, connectionSource, reference, id);
             }
         }
-
-        private string ExtractValue(string text, string pattern)
+        private string ExtractConnectionValue(string text, string pattern)
         {
             Match match = Regex.Match(text, pattern);
             return match.Success ? match.Groups[1].Value : string.Empty;
@@ -153,12 +154,17 @@ namespace _1C8_Base_Manager
         private string GenerateConnectionBlock(DataGridViewRow row)
         {
             string name = row.Cells[0].Value?.ToString() ?? "";
-            string server = row.Cells[1].Value?.ToString() ?? "";
+            string connectionSource = row.Cells[1].Value?.ToString() ?? "";
             string reference = row.Cells[2].Value?.ToString() ?? "";
             string id = row.Cells[3].Value?.ToString() ?? "";
 
+            bool isServer = Regex.IsMatch(connectionSource, @"^[\w\-]+$");
+            string connectLine = isServer
+                ? $@"Connect=Srvr=""{connectionSource}"";Ref=""{reference}"";"
+                : $@"Connect=File=""{connectionSource}"";";
+
             return $@"[{name}]
-Connect=Srvr=""{server}"";Ref=""{reference}"";
+{connectLine}
 ID={id}
 OrderInList=16384
 Folder=/
@@ -169,6 +175,7 @@ App=Auto
 WA=1
 Version=8.3";
         }
+
         private void button3_Click(object sender, EventArgs e)
         {
             if (lastActiveGridView == null)
